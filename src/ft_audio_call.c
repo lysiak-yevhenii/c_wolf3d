@@ -12,18 +12,6 @@
 
 #include "../include/wolf3d.h"
 
-void        ft_error_textures(char *str, char *strtow)
-{
-    ft_putstr("\33[0;31m");
-    ft_putstr("No enough ");
-    ft_putstr(str);
-    ft_putstr("<--- this textures. Please load more.");
-    ft_putstr("\nOR PUT BACK FOLDER NAME OR CREATE: ");
-    ft_putstr(strtow);
-    ft_putstr(" folder.");
-    exit(1);
-}
-
 void   ft_bzero_music_params(t_win *c_ct)
 {
     c_ct->music.play = 0;
