@@ -80,6 +80,19 @@ char        **ft_doublerelloc(char **src, char *word, int size) {
     return (begin);
 }
 
+void        ft_review_needed_folders(char *path, t_win *c_cl)
+{
+    c_cl->ofpresent = c_cl->nfpresent;
+    (!ft_strcmp(path, "./imgs/ceiling/")) ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./music/tracks/")) ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./imgs/menu_elements/")) ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./imgs/main_elements/"))  ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./imgs/walls/"))  ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./imgs/flats/")) ? c_cl->nfpresent++ : 0;
+    (!ft_strcmp(path, "./fonts/")) ? c_cl->nfpresent++ : 0;
+    (c_cl->ofpresent == c_cl->nfpresent) ? ft_error_folder() : 0;
+}
+
 int         ft_count_files(char *path, t_win *c_cl)
 {
     int file_count;
@@ -88,6 +101,9 @@ int         ft_count_files(char *path, t_win *c_cl)
 
     file_count = 0;
     dirp = opendir(path);
+	if (!dirp)
+        ft_error_folder();
+	ft_review_needed_folders(path, c_cl);
     while ((entry = readdir(dirp)) != NULL)
     {
         if (entry->d_type == DT_REG && ft_strcmp(entry->d_name, ".DS_Store")) {

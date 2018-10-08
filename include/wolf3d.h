@@ -14,7 +14,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-#define SCREEN_WIDTH	700 
+#define SCREEN_WIDTH	1200 
 #define SCREEN_HEIGHT	700
 #define SCREEN_HHALPH	SCREEN_HEIGHT/2
 #define FRAMES_PER_SECOND 60
@@ -171,6 +171,8 @@ typedef struct      s_textures
 
 typedef struct      s_win
 {
+	int			nfpresent;
+	int			ofpresent;
     /*------FPS-----*/
     Uint32     time;
     /*-------------*/
@@ -286,6 +288,7 @@ void			ft_error_dir(void);
 void	        ft_error_play_space(void);
 void	        ft_error_not_empty(void);
 void			ft_error_ttf_init(void);
+void			ft_error_folder(void);
 //Loads individual image as texture
 SDL_Surface*    ft_get_img(char *path);
 

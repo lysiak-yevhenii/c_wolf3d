@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 12:45:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/07 19:39:05 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/09 00:36:46 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void			ft_initialize_stract(t_win *sc_controller)
     sc_controller->music.stop = 0;
     sc_controller->time = 0;
     sc_controller->zoom = 1;
+	sc_controller->nfpresent = 0;
+	sc_controller->ofpresent = 0;
 }
 
 void			ft_initialize_player(t_win *sc_controller)

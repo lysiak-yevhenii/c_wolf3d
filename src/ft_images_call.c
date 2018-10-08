@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_images_call.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/08 22:49:30 by ylisyak           #+#    #+#             */
+/*   Updated: 2018/10/09 00:39:40 by ylisyak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
 
 SDL_Surface*    ft_get_img(char *path)
@@ -32,6 +44,7 @@ void            ft_fill_array_of_textures(t_textures *texture)
     }
 }
 
+
 void        ft_malloc_surfaces(t_win *c_cl)
 {
     c_cl->main.quantity = ft_count_files("./imgs/main_elements/", c_cl);
@@ -46,12 +59,14 @@ void        ft_malloc_surfaces(t_win *c_cl)
     c_cl->ceiling.quantity = ft_count_files("./imgs/ceiling/",c_cl);
     c_cl->ceiling.ptr_texture = malloc(sizeof(SDL_Surface) * c_cl->ceiling.quantity);
     ft_fill_array_of_textures(&c_cl->ceiling);
-	  (c_cl->main.quantity < 1) ?   ft_error_textures("main", "imgs/main_elements"):0;
+	(c_cl->main.quantity < 1) ?   ft_error_textures("main", "imgs/main_elements"):0;
     (c_cl->main.ttf_quantity < 1) ? ft_error_textures("ttf", "fonts/"):0;
     (c_cl->menu.quantity < 1) ?   ft_error_textures("manu", "imgs/main_elements"):0;
     (c_cl->walls.quantity < 4) ?  ft_error_textures("walls", "imgs/walls"):0;
     (c_cl->flats.quantity < 1) ?  ft_error_textures("flats", "imgs/flats"):0;
     (c_cl->ceiling.quantity < 1) ?ft_error_textures("ceiling", "imgs/ceiling"):0;
+	if (c_cl->nfpresent != 7)
+        ft_error_folder();
 }
 
 int             ft_init_images(t_win *c_cl)
