@@ -1,0 +1,74 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/10/07 01:40:09 by ylisyak           #+#    #+#              #
+#    Updated: 2018/10/07 03:09:43 by ylisyak          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	=		wolf3d
+
+FLAGS	=		-Wall -Werror -Wextra -O2
+
+LIBFT	=		./libft/
+
+DIR_S	=		./src/
+
+DIR_O	=		./temporary/
+
+INC		=		-I ./inc/ -I ./SDL/SDL2.framework/Headers \
+				-I ./SDL/SDL2_image.framework/Headers \
+				-I ./SDL/SDL2_ttf.framework/Headers \
+
+FRM := -F ./SDL/ -framework SDL2 -framework SDL2_image -framework SDL2_ttf -framework OpenCL
+
+SOURCES	=		main.c \
+   				error.c \
+			   	ft_audio_call.c \
+			   	ft_drawline.c \
+				ft_game.c \
+				ft_images_call.c \
+				ft_inicialize_state.c \
+			   	ft_keyboard_controller.c \
+			   	ft_main.c \
+			   	ft_map_parsing.c \
+			   	ft_menu.c \
+				servicestuff.c \
+
+SRCS := $(addprefix $(DIR_S),$(SOURCES))
+
+OBJS := $(addprefix $(DIR_O),$(SOURCES:.c=.o))
+
+HEAD	:=		./include/
+
+MLX		:=		-lmlx -framework OpenGL -framework AppKit
+
+all:	temporary $(NAME)
+
+temporary:
+			@mkdir -p $(DIR_O)
+
+$(DIR_O)/%.o:	$(DIR_S)/%.c $(HEAD)/$(NAME).h
+	@$(CC) $(FLAGS) -I $(HEAD) -c $< -o $@ 
+
+$(NAME): $(OBJS)
+	@make -c $(LIBFT)
+	gcc $(FLAGS) -o $(NAME) $(OBJS) $(HEAD) $(FRM)
+
+clean:
+	@make -C libft clean
+	@/bin/rm -f $(OBJ)
+	@echo "\033[91mObject files have been deleted\033[0m"
+
+fclean:	clean
+			@make -C libft fclean
+			@/bin/rm -f $(NAME)
+			@echo "\033[91mExecutables have been deleted\033[0m"
+
+re:			fclean all
+
+.PHONY:all clean fclean re
