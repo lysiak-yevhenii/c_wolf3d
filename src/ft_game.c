@@ -6,11 +6,21 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 18:48:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/08 02:52:36 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/08 21:55:39 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf3d.h"
+
+void    ft_draw_wall(t_win *game, int  wall_side, int x, int y)
+{
+    game->pixel_ptr = (uint32_t*)game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->pixels;
+    game->x = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->w;
+    game->y = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->h;
+    game->color_ptr = game->pixel_ptr[game->x * game->texy + game->texx];
+    (game->player->side == 0) ? game->color_ptr = (game->color_ptr >> 1) & 8355711 : 0;
+    game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
+}
 
 int				ft_rgb(int r, int g, int b, int transp)
 {
@@ -73,16 +83,10 @@ void    ft_putplayer_sdl(t_win *game)
     rect.x = game->player->posx * game->minimapcx;
     rect.y = game->player->posy *  game->minimapcy;
     rect.color = ft_rgb(0, 255, 0, 0);
-    game->miniimage[(int)rect.x + ((int)rect.y * (int)game->width)] = rect.color;
+	if (rect.x < game->width && rect.y < game->height)
+    	game->miniimage[(int)rect.x + ((int)rect.y * (int)game->width)] = \
+		rect.color;
 }
-
-int     isblocking(double x, double y, t_win *game)
-{
-    if (y < 0 || y > game->maph - 1 || x < 0 || x > game->mapw - 1)
-        return (1);
-    return (game->map.map[(int)floor(y)][(int)floor(x)] != 0);
-}
-
 
 void    ft_drawminimap(t_win *game)
 {
@@ -111,12 +115,13 @@ void    ft_drawminimap(t_win *game)
 
 void   ft_move_forward(t_win *game)
 {
-    if (game->map.map[(int) game->player->posy] [(int) (game->player->posx + game->player->dirx * game->player->moviespeed )]
-         == false)
-        game->player->posx += game->player->dirx * game->player->moviespeed ;
-    if (game->map.map[(int) (game->player->posy + game->player->diry * game->player->moviespeed)][(int) game->player->posx] \
-== false)
-        game->player->posy += game->player->diry * game->player->moviespeed ;
+    if (game->map.map[(int)game->player->posy] \
+	[(int)(game->player->posx + game->player->dirx * \
+	game->player->moviespeed)] == false)
+		game->player->posx += game->player->dirx * game->player->moviespeed;
+    if (game->map.map[(int)(game->player->posy + game->player->diry * \
+	game->player->moviespeed)][(int) game->player->posx] == false)
+		game->player->posy += game->player->diry * game->player->moviespeed ;
     if (game->currentKeyStates[SDL_SCANCODE_D])
         ft_turnleft(game);
     else if (game->currentKeyStates[SDL_SCANCODE_A])
@@ -125,11 +130,13 @@ void   ft_move_forward(t_win *game)
 
 void   ft_move_backward(t_win *game)
 {
-    if (game->map.map [(int)game->player->posy][(int)(game->player->posx - game->player->dirx * game->player->moviespeed)] \
-    == false)
-        game->player->posx -= game->player->dirx * game->player->moviespeed;
-    if (game->map.map[(int)(game->player->posy - game->player->diry * game->player->moviespeed)][(int)game->player->posx] == false)
-        game->player->posy -= game->player->diry * game->player->moviespeed;
+    if (game->map.map[(int)game->player->posy] \
+	[(int)(game->player->posx - game->player->dirx * \
+	game->player->moviespeed)] == false)
+		game->player->posx -= game->player->dirx * game->player->moviespeed;
+	if (game->map.map[(int)(game->player->posy - game->player->diry * \
+	game->player->moviespeed)][(int)game->player->posx] == false)
+		game->player->posy -= game->player->diry * game->player->moviespeed;
     if (game->currentKeyStates[SDL_SCANCODE_D])
         ft_turnright(game);
     else if (game->currentKeyStates[SDL_SCANCODE_A])
@@ -150,29 +157,27 @@ void    ft_move(t_win *game)
 
 void    ft_additonal_engine(t_win *game)
 {
-	int		screenw;
-	int		screenh;
-
-	screenw = SCREEN_WIDTH;
-	screenh = SCREEN_HEIGHT;
-	if ((screenw <= 1200) && (screenw >= 800) && (screenh <= 1200) && (screenh >= 800))
-	{
-		(game->minimapsurface == NULL) ? game->minimapsurface = SDL_CreateRGBSurface(0, game->width, game->height, 32, 0, 0, 0, 0) : 0;
-    	game->miniimage = (uint32_t *)game->minimapsurface->pixels;
-    	ft_drawminimap(game);
-	}
+	(game->minimapsurface == NULL) ? game->minimapsurface = \
+	SDL_CreateRGBSurface(0, game->width, game->height, 32, 0, 0, 0, 0) : 0;
+    (game->minimapsurface != NULL) ? game->miniimage = \
+	(uint32_t *)game->minimapsurface->pixels : 0;
+    ft_drawminimap(game);
 }
 
 void    ft_step_sidedist(t_win *game)
 {
     if (game->player->raydirx < 0)
-        (game->player->stepx = -1) && (game->player->sdistx = (game->player->posx - game->player->mapx) * game->player->ddistx);
+        (game->player->stepx = -1) && (game->player->sdistx = \
+		(game->player->posx - game->player->mapx) * game->player->ddistx);
     else
-        (game->player->stepx = 1) && (game->player->sdistx = (game->player->mapx + 1.0 - game->player->posx) * game->player->ddistx);
+        (game->player->stepx = 1) && (game->player->sdistx = \
+		(game->player->mapx + 1.0 - game->player->posx) * game->player->ddistx);
     if (game->player->raydiry < 0)
-        (game->player->stepy = -1) && (game->player->sdisty = (game->player->posy - game->player->mapy) * game->player->ddisty);
+        (game->player->stepy = -1) && (game->player->sdisty = \
+		(game->player->posy - game->player->mapy) * game->player->ddisty);
     else
-        (game->player->stepy = 1) && (game->player->sdisty = (game->player->mapy + 1.0 - game->player->posy) * game->player->ddisty);
+        (game->player->stepy = 1) && (game->player->sdisty = \
+		(game->player->mapy + 1.0 - game->player->posy) * game->player->ddisty);
 
 }
 
@@ -190,24 +195,27 @@ void    ft_review_hit_or_not(t_win *game)
             game->player->mapy += game->player->stepy;
             game->player->side = 1;
         }
-        if (game->map.map[game->player->mapy][game->player->mapx] > 0)  game->player->hit = 1;
+        if (game->map.map[game->player->mapy][game->player->mapx] > 0) 
+			game->player->hit = 1;
     }
-    game->x = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] - 1]->w;
-    game->y = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] - 1]->h;
+    game->x = game->walls.ptr_texture[game->map.map[game->player->mapy]\
+	[game->player->mapx] - 1]->w;
+    game->y = game->walls.ptr_texture[game->map.map[game->player->mapy]\
+	[game->player->mapx] - 1]->h;
 }
 
 
 void    ft_main_engine(t_win *game) {
     int x;
     int y;
-    double wallX; //where exactly the wall was hit
-    int lineHeight;
+    double wallX;
+	int lineHeight;
 
     x = 0;
     y = 0;
     while (x < SCREEN_WIDTH)
     {
-        game->player->camerax = (x << 1) / (double)SCREEN_WIDTH - 1; //x-coordinate in camera space
+        game->player->camerax = (x << 1) / (double)SCREEN_WIDTH - 1; 
         game->player->raydirx = game->player->dirx * game->zoom + game->player->planex * game->player->camerax;
         game->player->raydiry = game->player->diry * game->zoom +  game->player->planey * game->player->camerax;
         game->player->mapx = (int)game->player->posx;
@@ -232,14 +240,23 @@ void    ft_main_engine(t_win *game) {
         y = game->drawstart;
         while (y < game->drawend)
         {
-            game->coff = y - SCREEN_HHALPH + (lineHeight >> 1);
+			game->coff = y - SCREEN_HHALPH + (lineHeight >> 1);
             game->texy = ((game->coff * game->x) / lineHeight);
-            game->pixel_ptr = (uint32_t*)game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] - 1]->pixels;
-            game->color_ptr = game->pixel_ptr[game->x * game->texy + game->texx];
-            //(game->player->side == 0) ? game->color_ptr = (game->color_ptr >> 1) & 8355711 : 0;
-            game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
-            y++;
-        }
+            if (game->player->stepx < 0)
+                ft_draw_wall(game, 0, x, y);
+            else
+                ft_draw_wall(game, 1, x, y);
+            if (game->player->side == 1)
+            {
+                if (game->player->stepy < 0)
+                {
+                    ft_draw_wall(game, 2, x, y);
+                }
+                else
+                    ft_draw_wall(game, 3, x, y);
+            }
+            y++;           
+		}
         //FLOOR CASTING
         double floorXWall, floorYWall; //x, y position of the floor texel at the bottom of the wall
 
@@ -269,40 +286,28 @@ void    ft_main_engine(t_win *game) {
         distWall = game->player->perpwalldist;
         distPlayer = 0.0;
 
-        if (game->drawend < 0) game->drawend = SCREEN_HEIGHT; //becomes < 0 when the integer overflows
-        //draw the floor from drawEnd to the bottom of the screen
-        game->x1 = game->flats.ptr_texture[1]->w;
+        if (game->drawend < 0) game->drawend = SCREEN_HEIGHT;
+		game->x1 = game->flats.ptr_texture[1]->w;
         game->y1 = game->flats.ptr_texture[1]->h;
         game->x2 = game->ceiling.ptr_texture[0]->w;
         game->y2 = game->ceiling.ptr_texture[0]->h;
         for(int y = game->drawend + 1; y < SCREEN_HEIGHT; y++)
         {
-            currentDist = SCREEN_HEIGHT / (2.0 * y - SCREEN_HEIGHT); //you could make a small lookup table for this instead
-            double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+            currentDist = SCREEN_HEIGHT / (2.0 * y - SCREEN_HEIGHT);
+			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
             double currentFloorX = weight * floorXWall + (1.0 - weight) * game->player->posx;
             double currentFloorY = weight * floorYWall + (1.0 - weight) * game->player->posy;
             int floorTexX, floorTexY;
             floorTexX = (int)(currentFloorX * game->x1) % game->x1;
             floorTexY = (int)(currentFloorY * game->y1) % game->y1;
-//            int checkerBoardPattern = (int)(currentFloorX + currentFloorY) % 2;
-//            int floorTexture;
-//            if(checkerBoardPattern == 0) floorTexture = 3;
-//            else floorTexture = 4;
             game->pixel_ptr = (uint32_t*)game->flats.ptr_texture[1]->pixels;
             game->color_ptr = (game->pixel_ptr[game->x1 * floorTexY + floorTexX] >> 1) & 8355711;
-            //(game->player->side == 0) ? game->color_ptr = (game->color_ptr >> 1) & 8355711 : 0;
-           // Uint32 color = texture[texNum][texWidth * texY + texX];
-            game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
+             game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
 
             game->pixel_ptr = (uint32_t*)game->ceiling.ptr_texture[0]->pixels;
             game->color_ptr = (game->pixel_ptr[game->x2 * floorTexY + floorTexX] >> 1) & 8355711;
             game->image[x + (SCREEN_HEIGHT - y) * SCREEN_WIDTH] = game->color_ptr;
-            //floor
-           // buffer[y][x] = (texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
-            //ceiling (symmetrical!)
-            //buffer[SCREEN_HEIGHT - y][x] = texture[6][texWidth * floorTexY + floorTexX];
-        }
-
+		}
         x++;
     }
 }
@@ -310,21 +315,25 @@ void    ft_main_engine(t_win *game) {
 
 void    ft_game_core(t_win *game)
 {
-    (void)game;
     SDL_Rect area;
 
     area.x = 0;
     area.y = 0;
     area.w = game->width;
     area.h = game->height;
-    (game->screensurface == NULL) ? game->screensurface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0) : 0;
+    (game->screensurface == NULL) ? game->screensurface = \
+	SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0) : 0;
     game->image = (uint32_t *)game->screensurface->pixels;
-    ft_additonal_engine(game);
-	ft_main_engine(game);
+   	ft_main_engine(game);
+   	ft_additonal_engine(game);
  	game->currentKeyStates = SDL_GetKeyboardState(NULL);
-    (game->currentKeyStates[SDL_SCANCODE_W] || game->currentKeyStates[SDL_SCANCODE_S] || game->currentKeyStates[SDL_SCANCODE_D] || game->currentKeyStates[SDL_SCANCODE_A]) ? ft_move(game) : 0;
+    (game->currentKeyStates[SDL_SCANCODE_W] || \
+	 game->currentKeyStates[SDL_SCANCODE_S] || \
+	 game->currentKeyStates[SDL_SCANCODE_D] || \
+	 game->currentKeyStates[SDL_SCANCODE_A]) ? ft_move(game) : 0;
     SDL_BlitSurface(game->minimapsurface, NULL, game->screensurface, &area);
     SDL_FreeSurface(game->minimapsurface);
-    game->gTexture = SDL_CreateTextureFromSurface(game->gRenderer, game->screensurface);
+    game->gTexture = \
+	SDL_CreateTextureFromSurface(game->gRenderer, game->screensurface);
 }
 

@@ -14,9 +14,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-#define SCREEN_WIDTH  1200
-#define SCREEN_HEIGHT  700
-#define SCREEN_HHALPH   SCREEN_HEIGHT/2
+#define SCREEN_WIDTH	700 
+#define SCREEN_HEIGHT	700
+#define SCREEN_HHALPH	SCREEN_HEIGHT/2
 #define FRAMES_PER_SECOND 60
 #define PITWO       (M_PI * 2)
 #define FT_QUIT     (1 << 0)
@@ -273,6 +273,8 @@ void            ft_initialize_stract(t_win *sc_controller);
 int             ft_truble_win(char *truble, t_win *c_cl);
 int             ft_truble_img(char *truble, t_win *c_cl);
 int             ft_truble_mix(char *truble, t_win *c_cl);
+void			ft_error_textures(char *str, char *strtow);
+void			ft_error_minus(void);
 void			ft_error_gen(char *av);
 void			ft_error_hex(void);
 void			ft_error_notdigit(void);

@@ -46,6 +46,12 @@ void        ft_malloc_surfaces(t_win *c_cl)
     c_cl->ceiling.quantity = ft_count_files("./imgs/ceiling/",c_cl);
     c_cl->ceiling.ptr_texture = malloc(sizeof(SDL_Surface) * c_cl->ceiling.quantity);
     ft_fill_array_of_textures(&c_cl->ceiling);
+	  (c_cl->main.quantity < 1) ?   ft_error_textures("main", "imgs/main_elements"):0;
+    (c_cl->main.ttf_quantity < 1) ? ft_error_textures("ttf", "fonts/"):0;
+    (c_cl->menu.quantity < 1) ?   ft_error_textures("manu", "imgs/main_elements"):0;
+    (c_cl->walls.quantity < 4) ?  ft_error_textures("walls", "imgs/walls"):0;
+    (c_cl->flats.quantity < 1) ?  ft_error_textures("flats", "imgs/flats"):0;
+    (c_cl->ceiling.quantity < 1) ?ft_error_textures("ceiling", "imgs/ceiling"):0;
 }
 
 int             ft_init_images(t_win *c_cl)

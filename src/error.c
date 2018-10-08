@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/08 21:15:09 by ylisyak           #+#    #+#             */
+/*   Updated: 2018/10/08 21:17:20 by ylisyak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
+
+void		ft_error_minus(void)
+{
+	ft_putstr("NOT WALID MAP! \'-\' is preasent! You funny...");
+	ft_putstr("\nTry harder... (>_>) You know I hate you... ? .");
+	ft_putstr("\nYou trying to kick my ass. I hope you will fail.");
+	exit(1);
+}
 
 int         ft_truble_img(char *truble, t_win *c_cl)
 {

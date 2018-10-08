@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_map_parsing.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/08 21:05:47 by ylisyak           #+#    #+#             */
+/*   Updated: 2018/10/08 21:06:43 by ylisyak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
 
 static int				is_regular_file(const char *path)
@@ -67,6 +79,8 @@ static void		ft_help_function(t_win *c_cl, char *iter)
             iter++;
         if (*iter == '-' || isdigit(*iter))
         {
+			if (*iter == '-')
+				ft_error_minus();
             c_cl->map.map[(int)c_cl->y][(int)c_cl->x] = ft_atoi_base(iter, 10);
             c_cl->map.ceilingmap[(int)c_cl->y][(int)c_cl->x] =  \
 			ft_atoi_base("FFFFFF", 16);
