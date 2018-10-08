@@ -78,20 +78,20 @@ $(FT_LIB):
 
 $(NAME): $(OBJ_P)
 	@gcc $(OBJ_P) $(SDL_LNK) $(IMG_LNK) $(MIX_LNK) $(TTF_LNK) $(FT_LNK) -lm  -o $(NAME)
-	@say -v Karen "Compilation is finished."
-	@echo "All is done!"
+	@say -v Karen "Compilation is finished. You can RUN the game."
+	@echo "\033[32mAll is done!\033[0m"
 
 clean:
 	@rm -rf $(DIR_O)
 	@make -C $(FT) clean
 	@say -v Karen "You deleted all object files."
-	@echo "Objects files deleted"
+	@echo "\033[91mObject files have been deleted.\033[0m"
 
 fclean: clean
 	@rm -fr .DS*
 	@rm -rf $(NAME)
 	@make -C $(FT) fclean
 	@say -v Karen "You clean all files of the project. To use it again please recompile project."
-	@echo "All is clear!"
+	@echo "\033[91mAll is clear!\033[0m"
 
 re: fclean all

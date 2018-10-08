@@ -6,7 +6,7 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/28 11:29:52 by ylisyak           #+#    #+#              #
-#    Updated: 2018/10/07 05:55:06 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/10/09 00:46:43 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -162,16 +162,16 @@ OBJ = ft_memset.o \
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(FG) -c $(SRC) -I $(HD)
-	$(LC) $(NAME) $(OBJ)
+	@$(CC) $(FG) -c $(SRC) -I $(HD)
+	@$(LC) $(NAME) $(OBJ)
 
 clean:
-	rm -Rf *.o
+	@rm -Rf *.o
 
 fclean: clean
-	rm -Rf $(NAME)
+	@rm -Rf $(NAME)
 
 invizc:
-	find . -name ".*" \! -name '.git' -delete
+	@find . -name ".*" \! -name '.git' -delete
 
 re: fclean all

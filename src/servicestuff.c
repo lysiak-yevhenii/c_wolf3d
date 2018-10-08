@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   servicestuff.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/09 00:41:26 by ylisyak           #+#    #+#             */
+/*   Updated: 2018/10/09 00:43:06 by ylisyak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/wolf3d.h"
 
 void        free_darray(char **src, int size)
@@ -9,7 +21,8 @@ void        free_darray(char **src, int size)
     free(src);
 }
 
-char        **ft_doublerelloc_and_path(char **src, char *word, int size, char *path) {
+char        **ft_doublerelloc_and_path(char **src, char *word, \
+int size, char *path) {
     int     i;
     char    *tmp;
     char	**newptr;
@@ -139,9 +152,7 @@ void        ft_init_rander(t_win *c_cl)
 
 void       ft_init_window(t_win *c_cl)  //The window we'll be rendering to
 {
-	printf("HERE 1");
     (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) ? printf("Initialize SDL_Error: %s\n", SDL_GetError()) && (c_cl->statement = FT_FALSE) : 0;
-   printf("HERE 2");
    	if (!(c_cl->statement & FT_FALSE))
     {
 		(TTF_Init() == -1) ? ft_error_ttf_init() : 0;
