@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 18:48:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/08 21:55:39 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/09 22:59:57 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,10 +198,7 @@ void    ft_review_hit_or_not(t_win *game)
         if (game->map.map[game->player->mapy][game->player->mapx] > 0) 
 			game->player->hit = 1;
     }
-    game->x = game->walls.ptr_texture[game->map.map[game->player->mapy]\
-	[game->player->mapx] - 1]->w;
-    game->y = game->walls.ptr_texture[game->map.map[game->player->mapy]\
-	[game->player->mapx] - 1]->h;
+
 }
 
 

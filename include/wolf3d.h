@@ -19,7 +19,6 @@
 #define SCREEN_HHALPH	SCREEN_HEIGHT/2
 #define FRAMES_PER_SECOND 60
 #define PITWO       (M_PI * 2)
-#define FT_QUIT     (1 << 0)
 #define FT_FALSE    (1 << 2)
 #define FT_MAIN     (1 << 0)
 #define FT_MENU     (1 << 1)

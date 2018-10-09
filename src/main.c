@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 19:03:31 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/08 01:27:57 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/09 22:47:25 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ void			ft_insert_review(t_win *c_cl)
 		ft_error_not_empty();	
 }
 
+void    ft_map_textures_valid(t_win *c_cl)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    while (y < c_cl->map.miniheight) {
+        x = 0;
+        while (x < c_cl->map.miniwidth) {
+            if ((c_cl->map.map[y][x] + 4) > (c_cl->walls.quantity)) {
+				printf("SHIT");
+                ft_error_textures(". oh sorry to much ", "walltextures");
+            }
+            x++;
+        }
+        printf("\n");
+        y++;
+    }
+}
+
 int				main(int ac, char **av)
 {
 	t_win		c_cl;
@@ -53,6 +74,7 @@ int				main(int ac, char **av)
         ft_initialize_player(&c_cl);
 		ft_insert_review(&c_cl);
        	ft_init_window(&c_cl);
+		ft_map_textures_valid(&c_cl);
         (c_cl.statement & FT_FALSE) ? sdl_close(&c_cl) : ft_core(&c_cl);
         sdl_close(&c_cl);
         system("leaks -q wolf3d");
