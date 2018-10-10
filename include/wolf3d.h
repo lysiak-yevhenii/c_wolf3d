@@ -175,6 +175,12 @@ typedef struct      s_textures
 
 typedef struct      s_win
 {
+    double distWall;
+    double distPlayer;
+    int floorTexX;
+    int floorTexY;
+     double floorxwall;
+     double floorywall; 
 	int			nfpresent;
 	int			ofpresent;
     /*------FPS-----*/
@@ -342,6 +348,8 @@ SDL_Surface*    ft_get_img(char *path);
 
 //EXIT
 void            sdl_close(t_win *sc_control);
+
+void            ft_draw_c_f(t_win *game, int x, int y, double currentdist);
 
 void		    ft_line_sdl(t_vector2d *vector, t_win *game);
 
