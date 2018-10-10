@@ -31,6 +31,11 @@ typedef struct s_ft_rect
     int     width;
     int     hight;
     int     color;
+	int		startx;
+	int		starty;
+	int		endx;
+	int		endy;
+	int		tmp;
 }              t_ft_rect;
 
 typedef struct s_vector2d
@@ -233,36 +238,6 @@ typedef struct      s_win
     uint32_t        *miniimage;
 }                   t_win;
 
-
-//Parsing
-void            ft_map_parsing(char *av, t_win *c_cl);
-//Screens
-void            ft_main(t_win *main);
-int             ft_showmenu(t_win *main);
-void            ft_menu(t_win *menu);
-void            ft_game_core(t_win *game);
-//Libs help function
-int             ft_count_files(char *path, t_win *c_cl);
-//Initialize
-char            **ft_doublerelloc(char **src, char *word, int size);
-//Loads media
-int             ft_music_play(t_win *c_cl);
-int             ft_music_previous(t_win *c_ct);
-int             ft_music_next(t_win *c_ct);
-int             ft_hold_music(t_win *c_cl);
-//Frees media and shuts down SDL
-void            ft_bzero_move_params(t_win *game);
-void            ft_bzero_music_params(t_win *c_ct);
-void            sdl_close(t_win *sc_control);
-//Keyboard handler
-void            ft_keyboard_handle(t_win *c_ct);
-void            ft_move_forward(t_win *game);
-void            ft_move_backward(t_win *game);
-void            ft_turnright(t_win *game);
-void            ft_turnleft(t_win *game);
-//Mouse handler
-void            ft_mouse_handle(t_win *c_ct);
-void            ft_core(t_win *c_ct);
 //Inicializers
 void            ft_init_window(t_win *c_cl);                      //Starts up SDL and creates window
 int             ft_init_images(t_win *c_cl);                      //Initialize imgs
@@ -270,10 +245,13 @@ int             ft_init_audios(t_win *c_cl);
 int             ft_initialize_main_screen(t_win *sc_controller);
 void			ft_initialize_player(t_win *sc_controller);
 void            ft_initialize_stract(t_win *sc_controller);
+char            **ft_doublerelloc(char **src, char *word, int size);
+
 //Errors
 int             ft_truble_win(char *truble, t_win *c_cl);
 int             ft_truble_img(char *truble, t_win *c_cl);
 int             ft_truble_mix(char *truble, t_win *c_cl);
+void			ft_error_main_sound(void);
 void			ft_error_textures(char *str, char *strtow);
 void			ft_error_minus(void);
 void			ft_error_gen(char *av);
@@ -288,8 +266,82 @@ void	        ft_error_play_space(void);
 void	        ft_error_not_empty(void);
 void			ft_error_ttf_init(void);
 void			ft_error_folder(void);
+
+//Main
+void			ft_event_main(t_win *main);
+void			ft_main_keyevent_down(t_win *c_ct);
+
+//Menu
+void			ft_event_manu(t_win *c_ct);
+void			ft_menu_execute(t_win *c_ct);
+//Menu handlekey
+void 			ft_menu_keyevent_up(t_win *c_ct);
+void   		 	ft_menu_keyevent_down(t_win *c_ct);
+
+//Game
+void    		ft_new_event_player(t_win *c_ct);
+void			ft_game_execute(t_win *c_ct);
+//Motion
+void			ft_turnleft(t_win *game);
+void			ft_turnright(t_win *game);
+void			ft_move_forward(t_win *game);
+void			ft_move_backward(t_win *game);
+void			ft_move(t_win *game);
+//Minimap
+void			ft_putplayer_sdl(t_win *game);
+void			ft_drawminimap(t_win *game);
+void			ft_additonal_engine(t_win *game);
+
+//Text
+void			ft_set_text_position(t_win *main);
+
+//Music Player
+void			ft_malmix(t_win *c_cl);
+void			ft_fill_playlist(t_win *c_cl, int quantity);
+void			ft_bzero_music_params(t_win *c_cl);
+void			ft_music_player_keyevent_down(t_win *c_ct);
+void    		ft_music_execute(t_win *c_ct);
+//Loads media
+int             ft_music_play(t_win *c_cl);
+int             ft_music_previous(t_win *c_ct);
+int             ft_music_next(t_win *c_ct);
+int             ft_hold_music(t_win *c_cl);
+
+//Drawing
+void			ft_draw_wall(t_win *game, int wall_side, int x, int y);
+void			ft_line_direct(t_win *game);
+void			ft_fill_rect(t_ft_rect *rect, t_win *game);
+int				ft_rgb(int r, int g, int b, int	transp);
+//Vizualization 
+void			ft_visualization(t_win *c_ct);
+
+//Parsing
+void            ft_map_parsing(char *av, t_win *c_cl);
+//Screens
+void            ft_main(t_win *main);
+int             ft_showmenu(t_win *main);
+void            ft_menu(t_win *menu);
+void            ft_game_core(t_win *game);
+//Libs help function
+int             ft_count_files(char *path, t_win *c_cl);
+
+
+
+//Frees media and shuts down SDL
+void            ft_bzero_move_params(t_win *game);
+
+//Keyboard handler
+void            ft_keyboard_handle(t_win *c_ct);
+
+//Mouse handler
+void            ft_mouse_handle(t_win *c_ct);
+void            ft_core(t_win *c_ct);
+
 //Loads individual image as texture
 SDL_Surface*    ft_get_img(char *path);
+
+//EXIT
+void            sdl_close(t_win *sc_control);
 
 void		    ft_line_sdl(t_vector2d *vector, t_win *game);
 

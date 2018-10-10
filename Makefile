@@ -6,7 +6,7 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/07 02:47:01 by ylisyak           #+#    #+#              #
-#    Updated: 2018/10/07 06:26:00 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/10/10 22:13:59 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,23 @@ TTF_LNK	= -L ./sdl/sdl2_ttf/2.0.14/lib/ -l SDL2_ttf
 
 SRC		=	main.c \
 			ft_map_parsing.c \
-			error.c \
+			ft_error.c \
+			ft_error_init_sdl.c \
+			ft_error_map.c \
+			ft_error_map_add.c \
+			ft_error_player.c \
+			ft_error_ttur_upload.c \
+			ft_error_mse.c \
 			ft_inicialize_state.c \
 			servicestuff.c \
 			ft_images_call.c \
 			ft_audio_call.c \
+			ft_music.c \
+			ft_drawing.c \
 			ft_drawline.c \
 			ft_game.c \
+			ft_minimap_engin.c \
+			ft_motion.c \
 			ft_keyboard_controller.c \
 			ft_main.c \
 			ft_menu.c \

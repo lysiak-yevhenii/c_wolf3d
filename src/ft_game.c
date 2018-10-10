@@ -12,157 +12,6 @@
 
 #include "../include/wolf3d.h"
 
-void    ft_draw_wall(t_win *game, int  wall_side, int x, int y)
-{
-    game->pixel_ptr = (uint32_t*)game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->pixels;
-    game->x = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->w;
-    game->y = game->walls.ptr_texture[game->map.map[game->player->mapy][game->player->mapx] + wall_side]->h;
-    game->color_ptr = game->pixel_ptr[game->x * game->texy + game->texx];
-    (game->player->side == 0) ? game->color_ptr = (game->color_ptr >> 1) & 8355711 : 0;
-    game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
-}
-
-int				ft_rgb(int r, int g, int b, int transp)
-{
-    int			color;
-
-    color = b + (g << 8) + (r << 16) + (transp << 24);
-    return (color);
-}
-
-void    ft_line_direct(t_win *game)
-{
-    t_vector2d direction;
-
-    game->color = ft_rgb(0, 255, 255, 0);
-    direction.x0 = game->player->posx * game->minimapcx;
-    direction.y0 = game->player->posy * game->minimapcy;
-    direction.x1 = (game->player->posx + game->player->dirx * 4 + \
-	cos(game->player->rot) * game->player->stripwidth) * game->minimapcx;
-    direction.y1 = (game->player->posy + game->player->diry * 4 + \
-	sin(game->player->rot) * game->player->stripwidth) * game->minimapcy; 
-    direction.color = ft_rgb(255, 0, 0, 0);
-    ft_line_sdl(&direction, game);
-}
-
-void    ft_fill_rect(t_ft_rect *rect, t_win *game)
-{
-    int startx;
-    int starty;
-    int endx;
-    int endy;
-    int tmp;
-
-    startx = rect->x * game->minimapcx;
-    tmp = startx;
-    endx = startx + game->minimapcx;
-    starty = rect->y * game->minimapcy;
-    endy = starty + game->minimapcy;
-    while (starty < endy)
-    {
-        startx = tmp;
-        while (startx < endx)
-        {
-            game->miniimage[startx + (starty * (int)game->width)] \
-			= rect->color;
-            startx++;
-        }
-        starty++;
-    }
-}
-
-void    ft_putplayer_sdl(t_win *game)
-{
-    t_ft_rect rect;
-
-    rect.x = game->player->posx;
-    rect.y = game->player->posy;
-    rect.color = ft_rgb(0, 0, 255, 0);
-    ft_fill_rect(&rect, game);
-    ft_line_direct(game);
-    rect.x = game->player->posx * game->minimapcx;
-    rect.y = game->player->posy *  game->minimapcy;
-    rect.color = ft_rgb(0, 255, 0, 0);
-	if (rect.x < game->width && rect.y < game->height)
-    	game->miniimage[(int)rect.x + ((int)rect.y * (int)game->width)] = \
-		rect.color;
-}
-
-void    ft_drawminimap(t_win *game)
-{
-    t_ft_rect rect;
-    int wall;
-
-    rect.y = 0;
-    game->minimapcx = game->width / game->map.miniwidth;
-    game->minimapcy = game->height / game->map.miniheight;
-    rect.width = game->width;
-    rect.hight = game->height;
-    rect.color = ft_rgb(255, 0,0,0);
-    while (rect.y < game->map.miniheight) {
-        rect.x = 0;
-        while (rect.x < game->map.miniwidth) {
-            wall = game->map.map[rect.y][rect.x];
-            if (wall > 0) {
-                ft_fill_rect(&rect, game);
-            }
-            rect.x++;
-        }
-        rect.y++;
-    }
-    ft_putplayer_sdl(game);
-}
-
-void   ft_move_forward(t_win *game)
-{
-    if (game->map.map[(int)game->player->posy] \
-	[(int)(game->player->posx + game->player->dirx * \
-	game->player->moviespeed)] == false)
-		game->player->posx += game->player->dirx * game->player->moviespeed;
-    if (game->map.map[(int)(game->player->posy + game->player->diry * \
-	game->player->moviespeed)][(int) game->player->posx] == false)
-		game->player->posy += game->player->diry * game->player->moviespeed ;
-    if (game->currentKeyStates[SDL_SCANCODE_D])
-        ft_turnleft(game);
-    else if (game->currentKeyStates[SDL_SCANCODE_A])
-        ft_turnright(game);
-}
-
-void   ft_move_backward(t_win *game)
-{
-    if (game->map.map[(int)game->player->posy] \
-	[(int)(game->player->posx - game->player->dirx * \
-	game->player->moviespeed)] == false)
-		game->player->posx -= game->player->dirx * game->player->moviespeed;
-	if (game->map.map[(int)(game->player->posy - game->player->diry * \
-	game->player->moviespeed)][(int)game->player->posx] == false)
-		game->player->posy -= game->player->diry * game->player->moviespeed;
-    if (game->currentKeyStates[SDL_SCANCODE_D])
-        ft_turnright(game);
-    else if (game->currentKeyStates[SDL_SCANCODE_A])
-        ft_turnleft(game);
-}
-
-void    ft_move(t_win *game)
-{
-    if (game->currentKeyStates[SDL_SCANCODE_W])
-        ft_move_forward(game);
-    else if (game->currentKeyStates[SDL_SCANCODE_S])
-        ft_move_backward(game);
-    else if (game->currentKeyStates[SDL_SCANCODE_D])
-        ft_turnleft(game);
-    else if (game->currentKeyStates[SDL_SCANCODE_A])
-        ft_turnright(game);
-}
-
-void    ft_additonal_engine(t_win *game)
-{
-	(game->minimapsurface == NULL) ? game->minimapsurface = \
-	SDL_CreateRGBSurface(0, game->width, game->height, 32, 0, 0, 0, 0) : 0;
-    (game->minimapsurface != NULL) ? game->miniimage = \
-	(uint32_t *)game->minimapsurface->pixels : 0;
-    ft_drawminimap(game);
-}
 
 void    ft_step_sidedist(t_win *game)
 {
@@ -178,7 +27,6 @@ void    ft_step_sidedist(t_win *game)
     else
         (game->player->stepy = 1) && (game->player->sdisty = \
 		(game->player->mapy + 1.0 - game->player->posy) * game->player->ddisty);
-
 }
 
 void    ft_review_hit_or_not(t_win *game)
@@ -198,7 +46,6 @@ void    ft_review_hit_or_not(t_win *game)
         if (game->map.map[game->player->mapy][game->player->mapx] > 0) 
 			game->player->hit = 1;
     }
-
 }
 
 
@@ -309,6 +156,29 @@ void    ft_main_engine(t_win *game) {
     }
 }
 
+
+void    ft_new_event_player(t_win *c_ct)
+{
+     if (SDL_PollEvent(&c_ct->event)) {
+         c_ct->currentKeyStates = SDL_GetKeyboardState(NULL);
+         (c_ct->event.type == SDL_QUIT || \
+         c_ct->currentKeyStates[SDL_SCANCODE_ESCAPE]) ? \
+        (c_ct->statement = 0) : 0;
+         if (c_ct->event.type == SDL_KEYDOWN) {
+             ft_music_player_keyevent_down(c_ct);
+             if ((c_ct->music.play == 1) || \
+                (c_ct->music.pause == 1) || (c_ct->music.stop == 1) || \
+                (c_ct->music.next_song == 1) || (c_ct->music.previou_song == 1))
+                 ft_music_execute(c_ct);
+             if (c_ct->currentKeyStates[SDL_SCANCODE_F1])
+                 ft_menu_execute(c_ct);
+         }
+         else if (c_ct->event.type == SDL_KEYUP)
+             ft_bzero_music_params(c_ct);
+         else if (c_ct->event.type == SDL_QUIT)
+             c_ct->statement = 0;
+     }
+}
 
 void    ft_game_core(t_win *game)
 {
