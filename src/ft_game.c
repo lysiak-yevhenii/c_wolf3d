@@ -151,13 +151,8 @@ void		ft_ceiling_floor_viz(t_win *game, int x)
 	}
 }
 
-void		ft_main_engine(t_win *game)
+void		ft_main_cycle(t_win *game, int x, double wallx, int lineheight)
 {
-	int		x;
-	double	wallx;
-	int		lineheight;
-
-	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
 		ft_step_sidedist(game, &x);
@@ -183,6 +178,18 @@ void		ft_main_engine(t_win *game)
 		ft_ceiling_floor_viz(game, x);
 		x++;
 	}
+}
+
+void		ft_main_engine(t_win *game)
+{
+	int		x;
+	double	wallx;
+	int		lineheight;
+
+	x = 0;
+	wallx = 0.0;
+	lineheight = 0;
+	ft_main_cycle(game, x, wallx, lineheight);
 }
 
 void		ft_new_event_player(t_win *c_ct)
