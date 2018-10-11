@@ -6,11 +6,31 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 23:09:43 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/10 23:12:26 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 00:31:21 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf3d.h"
+
+void		ft_menu_engin(t_win *c_ct)
+{
+	if (c_ct->flag_menu_game & FT_MENU)
+	{
+		ft_event_manu(c_ct);
+		ft_menu(c_ct);
+	}
+}
+
+void		ft_main_engin(t_win *c_ct)
+{
+	if (c_ct->flag_menu_game & FT_MAIN)
+	{
+		(Mix_PlayingMusic() == 0) ? Mix_PlayMusic((c_ct->music.track = \
+		Mix_LoadMUS("./music/support/main.mp3")), -1) : 0;
+		ft_event_main(c_ct);
+		ft_main(c_ct);
+	}
+}
 
 void		ft_event_manu(t_win *c_ct)
 {

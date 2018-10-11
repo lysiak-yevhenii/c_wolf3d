@@ -14,8 +14,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-#define SCREEN_WIDTH	1200 
-#define SCREEN_HEIGHT	700
+#define SCREEN_WIDTH	1800 
+#define SCREEN_HEIGHT	1200
 #define SCREEN_HHALPH	SCREEN_HEIGHT/2
 #define FRAMES_PER_SECOND 60
 #define PITWO       (M_PI * 2)
@@ -175,10 +175,10 @@ typedef struct      s_textures
 
 typedef struct      s_win
 {
-    double distWall;
-    double distPlayer;
-    int floorTexX;
-    int floorTexY;
+    double distwall;
+    double distplayer;
+    int floortexx;
+    int floortexy;
      double floorxwall;
      double floorywall; 
 	int			nfpresent;
@@ -276,6 +276,7 @@ void			ft_error_folder(void);
 //Main
 void			ft_event_main(t_win *main);
 void			ft_main_keyevent_down(t_win *c_ct);
+void			ft_main_engin(t_win *c_ct);
 
 //Menu
 void			ft_event_manu(t_win *c_ct);
@@ -283,6 +284,7 @@ void			ft_menu_execute(t_win *c_ct);
 //Menu handlekey
 void 			ft_menu_keyevent_up(t_win *c_ct);
 void   		 	ft_menu_keyevent_down(t_win *c_ct);
+void			ft_menu_engin(t_win *c_ct);
 
 //Game
 void    		ft_new_event_player(t_win *c_ct);
@@ -297,11 +299,19 @@ void			ft_move(t_win *game);
 void			ft_putplayer_sdl(t_win *game);
 void			ft_drawminimap(t_win *game);
 void			ft_additonal_engine(t_win *game);
+//GameCounts
+void			ft_camera(t_win *game, int x);
+void			ft_step_sidedist(t_win *game, int *x);
+void			ft_review_hit_or_not(t_win *game);
+void			ft_wall(t_win *game, int lineheight, int x);
+void			ft_floor_hit(t_win *game, double wallx);
+void			ft_ceiling_floor_viz(t_win *game, int x);
 
 //Text
 void			ft_set_text_position(t_win *main);
 
 //Music Player
+void			ft_music_player_keyevent_down(t_win *c_ct);
 void			ft_malmix(t_win *c_cl);
 void			ft_fill_playlist(t_win *c_cl, int quantity);
 void			ft_bzero_music_params(t_win *c_cl);
@@ -331,7 +341,17 @@ void            ft_game_core(t_win *game);
 //Libs help function
 int             ft_count_files(char *path, t_win *c_cl);
 
-
+//Service function 
+//Malloc
+void        free_darray(char **src, int size);
+char        **ft_doub_part_one(char *word, char *path);
+char        **ft_doub_part_two(char **src, char *word, int size, char *path);
+char        **ft_doub_one(char *word);
+char        **ft_doub_two(char **src, char *word, int size);
+char        **ft_doublerelloc_and_path(char **src, char *word, int size, char *path);
+char        **ft_doublerelloc(char **src, char *word, int size);
+void        ft_review_needed_folders(char *path, t_win *c_cl);
+void        ft_help_count(char *path, t_win *c_cl, struct dirent *entry, int file_count);
 
 //Frees media and shuts down SDL
 void            ft_bzero_move_params(t_win *game);

@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 20:05:18 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/11 00:01:03 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 00:10:52 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,25 @@ void		ft_fill_playlist(t_win *c_cl, int quantity)
 		tmp = ft_strjoin(path, c_cl->music.track_names[order++]);
 		free(tmp);
 	}
+}
+
+void		ft_music_player_keyevent_down(t_win *c_ct)
+{
+	if (c_ct->currentKeyStates[SDL_SCANCODE_F8])
+		if (c_ct->music.play)
+			c_ct->music.pause = 1;
+		else
+			c_ct->music.play = 1;
+	else if (c_ct->currentKeyStates[SDL_SCANCODE_F7])
+		c_ct->music.previou_song = 1;
+	else if (c_ct->currentKeyStates[SDL_SCANCODE_F9])
+		c_ct->music.next_song = 1;
+	else if (c_ct->currentKeyStates[SDL_SCANCODE_F6])
+		c_ct->music.stop = 1;
+	else if (c_ct->currentKeyStates[SDL_SCANCODE_KP_PLUS])
+		c_ct->zoom += 0.1;
+	else if (c_ct->currentKeyStates[SDL_SCANCODE_KP_MINUS])
+		c_ct->zoom -= 0.1;
 }
 
 void		ft_malmix(t_win *c_cl)

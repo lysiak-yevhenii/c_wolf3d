@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 18:48:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/10 22:24:48 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/11 22:10:15 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@ void			ft_visualization(t_win *c_ct)
 
 void			ft_draw_c_f(t_win *game, int x, int y, double currentdist)
 {
-	double weight;
-	double currentFloorX;
-	double currentFloorY;
+	double		weight;
+	double		currentfloorx;
+	double		currentfloory;
 
-	weight = (currentdist - game->distPlayer) / (game->distWall - game->distPlayer);
-    currentFloorX = weight * game->floorxwall + (1.0 - weight) * game->player->posx;
-    currentFloorY = weight * game->floorywall + (1.0 - weight) * game->player->posy;
-    game->floorTexX = (int)(currentFloorX * game->x1) % game->x1;
-    game->floorTexY = (int)(currentFloorY * game->y1) % game->y1;
-    game->pixel_ptr = (uint32_t*)game->flats.ptr_texture[1]->pixels;
-    game->color_ptr = (game->pixel_ptr[game->x1 * game->floorTexY + game->floorTexX] >> 1) & 8355711;
-    game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
-    game->pixel_ptr = (uint32_t*)game->ceiling.ptr_texture[0]->pixels;
-    game->color_ptr = (game->pixel_ptr[game->x2 * game->floorTexY + game->floorTexX] >> 1) & 8355711;
-    game->image[x + (SCREEN_HEIGHT - y) * SCREEN_WIDTH] = game->color_ptr;
+	weight = (currentdist - game->distplayer) / (game->distwall -\
+	game->distplayer);
+	currentfloorx = weight * game->floorxwall + (1.0 - weight) *\
+	game->player->posx;
+	currentfloory = weight * game->floorywall + (1.0 - weight) *\
+	game->player->posy;
+	game->floortexx = (int)(currentfloorx * game->x1) % game->x1;
+	game->floortexy = (int)(currentfloory * game->y1) % game->y1;
+	game->pixel_ptr = (uint32_t*)game->flats.ptr_texture[1]->pixels;
+	game->color_ptr = (game->pixel_ptr[game->x1 * game->floortexy +\
+	game->floortexx] >> 1) & 8355711;
+	game->image[x + y * SCREEN_WIDTH] = game->color_ptr;
+	game->pixel_ptr = (uint32_t*)game->ceiling.ptr_texture[0]->pixels;
+	game->color_ptr = (game->pixel_ptr[game->x2 * game->floortexy +\
+	game->floortexx] >> 1) & 8355711;
+	game->image[x + (SCREEN_HEIGHT - y) * SCREEN_WIDTH] = game->color_ptr;
 }
 
 void			ft_draw_wall(t_win *game, int wall_side, int x, int y)

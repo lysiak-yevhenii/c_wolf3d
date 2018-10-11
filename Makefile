@@ -6,7 +6,7 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/07 02:47:01 by ylisyak           #+#    #+#              #
-#    Updated: 2018/10/10 22:13:59 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/10/12 01:10:21 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,11 +67,14 @@ SRC		=	main.c \
 			ft_drawing.c \
 			ft_drawline.c \
 			ft_game.c \
+			ft_game_expand.c \
 			ft_minimap_engin.c \
 			ft_motion.c \
 			ft_keyboard_controller.c \
 			ft_main.c \
 			ft_menu.c \
+			ft_service_malloc.c \
+			ft_service_control.c \
 
 OBJ_P	=	$(addprefix $(DIR_O), $(SRC:.c=.o))
 
