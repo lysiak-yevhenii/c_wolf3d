@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 00:41:26 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/12 01:25:56 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 01:30:25 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void				ft_init_rander(t_win *c_cl)
 
 void				ft_init_window(t_win *c_cl)
 {
-	(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) ?\
-	ft_putstr(SDL_GetError()) && (c_cl->statement = FT_FALSE) : 0;
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	{
+		ft_putstr(SDL_GetError());
+	   	(c_cl->statement = FT_FALSE);
+	}
 	if (!(c_cl->statement & FT_FALSE))
 	{
 		(TTF_Init() == -1) ? ft_error_ttf_init() : 0;
