@@ -6,7 +6,7 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/07 02:47:01 by ylisyak           #+#    #+#              #
-#    Updated: 2018/10/12 17:48:18 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/10/12 22:41:55 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ $(FT_LIB):
 	@make -C $(FT)
 
 $(NAME): $(OBJ_P)
-	@gcc $(OBJ_P) $(SDL_LNK) $(IMG_LNK) $(MIX_LNK) $(TTF_LNK) $(FT_LNK) -lm  -o $(NAME)
+	@gcc $(OBJ_P) $(SDL_LNK) $(IMG_LNK) $(MIX_LNK) $(TTF_LNK) $(FT_LNK) -lm  -o $(NAME) -g -O0
 	@say -v Karen "Compilation is finished. You can RUN the game."
 	@echo "\033[32mAll is done!\033[0m"
 

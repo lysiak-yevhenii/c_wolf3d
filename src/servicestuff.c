@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 00:41:26 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/12 16:23:49 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:21:51 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void				ft_init_rander(t_win *c_cl)
 	Uint32			render_flags;
 
 	render_flags = (SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	c_cl->gRenderer = SDL_CreateRenderer(c_cl->window, -1, render_flags);
-	(c_cl->gRenderer == NULL) ?\
+	c_cl->grenderer = SDL_CreateRenderer(c_cl->window, -1, render_flags);
+	(c_cl->grenderer == NULL) ?\
 	ft_truble_win("Render could not be created! SDL Error: ", c_cl) : 0;
 }
 
@@ -70,12 +70,12 @@ void				ft_init_window(t_win *c_cl)
 void				sdl_close(t_win *c_sc)
 {
 	(c_sc->music.track != NULL) ? Mix_FreeMusic(c_sc->music.track) : 0;
-	SDL_DestroyTexture(c_sc->gTexture);
-	SDL_DestroyRenderer(c_sc->gRenderer);
+	SDL_DestroyTexture(c_sc->gtexture);
+	SDL_DestroyRenderer(c_sc->grenderer);
 	SDL_DestroyWindow(c_sc->window);
-	c_sc->gTexture = NULL;
+	c_sc->gtexture = NULL;
 	c_sc->window = NULL;
-	c_sc->gRenderer = NULL;
+	c_sc->grenderer = NULL;
 	c_sc->music.track = NULL;
 	Mix_CloseAudio();
 	TTF_Quit();

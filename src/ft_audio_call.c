@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 19:06:11 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/10 21:04:34 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:22:34 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			ft_music_play(t_win *c_cl)
 
 int			ft_hold_music(t_win *c_cl)
 {
-	if (c_cl->currentKeyStates[SDL_SCANCODE_F6])
+	if (c_cl->currentkeystates[SDL_SCANCODE_F6])
 		Mix_HaltMusic();
 	return (1);
 }

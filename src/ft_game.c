@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 18:48:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/11 22:04:52 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:53:00 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void		ft_new_event_player(t_win *c_ct)
 {
 	if (SDL_PollEvent(&c_ct->event))
 	{
-		c_ct->currentKeyStates = SDL_GetKeyboardState(NULL);
+		c_ct->currentkeystates = SDL_GetKeyboardState(NULL);
 		(c_ct->event.type == SDL_QUIT || \
-		c_ct->currentKeyStates[SDL_SCANCODE_ESCAPE]) ? \
+		c_ct->currentkeystates[SDL_SCANCODE_ESCAPE]) ? \
 		(c_ct->statement = 0) : 0;
 		if (c_ct->event.type == SDL_KEYDOWN)
 		{
@@ -81,7 +81,7 @@ void		ft_new_event_player(t_win *c_ct)
 			(c_ct->music.pause == 1) || (c_ct->music.stop == 1) || \
 			(c_ct->music.next_song == 1) || (c_ct->music.previou_song == 1))
 				ft_music_execute(c_ct);
-			if (c_ct->currentKeyStates[SDL_SCANCODE_F1])
+			if (c_ct->currentkeystates[SDL_SCANCODE_F1])
 				ft_menu_execute(c_ct);
 		}
 		else if (c_ct->event.type == SDL_KEYUP)
@@ -104,13 +104,13 @@ void		ft_game_core(t_win *game)
 	game->image = (uint32_t *)game->screensurface->pixels;
 	ft_main_engine(game);
 	ft_additonal_engine(game);
-	game->currentKeyStates = SDL_GetKeyboardState(NULL);
-	(game->currentKeyStates[SDL_SCANCODE_W] || \
-	game->currentKeyStates[SDL_SCANCODE_S] || \
-	game->currentKeyStates[SDL_SCANCODE_D] || \
-	game->currentKeyStates[SDL_SCANCODE_A]) ? ft_move(game) : 0;
+	game->currentkeystates = SDL_GetKeyboardState(NULL);
+	(game->currentkeystates[SDL_SCANCODE_W] || \
+	game->currentkeystates[SDL_SCANCODE_S] || \
+	game->currentkeystates[SDL_SCANCODE_D] || \
+	game->currentkeystates[SDL_SCANCODE_A]) ? ft_move(game) : 0;
 	SDL_BlitSurface(game->minimapsurface, NULL, game->screensurface, &area);
 	SDL_FreeSurface(game->minimapsurface);
-	game->gTexture = \
-	SDL_CreateTextureFromSurface(game->gRenderer, game->screensurface);
+	game->gtexture = \
+	SDL_CreateTextureFromSurface(game->grenderer, game->screensurface);
 }

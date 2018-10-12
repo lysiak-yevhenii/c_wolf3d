@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 23:09:43 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/12 00:31:21 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:31:34 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void		ft_event_manu(t_win *c_ct)
 
 void		ft_menu(t_win *c_cl)
 {
-	(c_cl->gTexture != NULL) ? SDL_DestroyTexture(c_cl->gTexture) : 0;
-	c_cl->gTexture = SDL_CreateTextureFromSurface(c_cl->gRenderer,\
+	(c_cl->gtexture != NULL) ? SDL_DestroyTexture(c_cl->gtexture) : 0;
+	c_cl->gtexture = SDL_CreateTextureFromSurface(c_cl->grenderer,\
 	(c_cl->menu.ptr_texture = \
 	ft_get_img(c_cl->menu.names_with_path[c_cl->menu.lotary])));
 	SDL_FreeSurface(c_cl->menu.ptr_texture);
-	if (!c_cl->gTexture)
+	if (!c_cl->gtexture)
 	{
 		ft_putstr("Error : \n");
 		ft_putstr(SDL_GetError());

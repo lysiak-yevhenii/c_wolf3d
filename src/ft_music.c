@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 20:05:18 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/12 00:10:52 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:24:30 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,20 @@ void		ft_fill_playlist(t_win *c_cl, int quantity)
 
 void		ft_music_player_keyevent_down(t_win *c_ct)
 {
-	if (c_ct->currentKeyStates[SDL_SCANCODE_F8])
+	if (c_ct->currentkeystates[SDL_SCANCODE_F8])
 		if (c_ct->music.play)
 			c_ct->music.pause = 1;
 		else
 			c_ct->music.play = 1;
-	else if (c_ct->currentKeyStates[SDL_SCANCODE_F7])
+	else if (c_ct->currentkeystates[SDL_SCANCODE_F7])
 		c_ct->music.previou_song = 1;
-	else if (c_ct->currentKeyStates[SDL_SCANCODE_F9])
+	else if (c_ct->currentkeystates[SDL_SCANCODE_F9])
 		c_ct->music.next_song = 1;
-	else if (c_ct->currentKeyStates[SDL_SCANCODE_F6])
+	else if (c_ct->currentkeystates[SDL_SCANCODE_F6])
 		c_ct->music.stop = 1;
-	else if (c_ct->currentKeyStates[SDL_SCANCODE_KP_PLUS])
+	else if (c_ct->currentkeystates[SDL_SCANCODE_KP_PLUS])
 		c_ct->zoom += 0.1;
-	else if (c_ct->currentKeyStates[SDL_SCANCODE_KP_MINUS])
+	else if (c_ct->currentkeystates[SDL_SCANCODE_KP_MINUS])
 		c_ct->zoom -= 0.1;
 }
 

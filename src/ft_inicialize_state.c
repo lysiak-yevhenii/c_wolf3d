@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/14 12:45:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/10 22:56:00 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:52:29 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void			ft_initialize_stract(t_win *sc_controller)
 	sc_controller->window = NULL;
 	sc_controller->screensurface = NULL;
 	sc_controller->minimapsurface = NULL;
-	sc_controller->gRenderer = NULL;
-	sc_controller->gTexture = NULL;
+	sc_controller->grenderer = NULL;
+	sc_controller->gtexture = NULL;
 	sc_controller->mapw = 0;
 	sc_controller->maph = 0;
 	sc_controller->minimapcx = 0;
@@ -45,8 +45,8 @@ void			ft_initialize_player(t_win *sc_controller)
 	sc_controller->player->walkd = 0;
 	sc_controller->player->walkr = 0;
 	sc_controller->player->walkl = 0;
-	sc_controller->player->rotspeed = 6 * M_PI / 180;
-	sc_controller->player->moviespeed = 0.2;
+	sc_controller->player->rotspeed = 4 * M_PI / 180;
+	sc_controller->player->moviespeed = 0.4;
 	sc_controller->player->posx = 3.5;
 	sc_controller->player->posy = 1.5;
 	sc_controller->player->dirx = 1;

@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/10 22:56:28 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/10 23:19:37 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:30:28 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ void		ft_main(t_win *main)
 		main->main.menus[i] = NULL;
 		i++;
 	}
-	main->gTexture = SDL_CreateTextureFromSurface(main->gRenderer,\
+	main->gtexture = SDL_CreateTextureFromSurface(main->grenderer,\
 	main->main.ptr_texture);
 	SDL_FreeSurface(main->main.ptr_texture);
-	if (!main->gTexture)
+	if (!main->gtexture)
 	{
 		ft_putstr("Error: \n");
 		ft_putstr(SDL_GetError());

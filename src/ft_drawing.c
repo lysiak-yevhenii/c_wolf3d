@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/07 18:48:10 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/11 22:10:15 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 19:25:31 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void			ft_visualization(t_win *c_ct)
 {
 	SDL_FreeSurface(c_ct->screensurface);
-	SDL_RenderClear(c_ct->gRenderer);
-	SDL_RenderCopy(c_ct->gRenderer, c_ct->gTexture, NULL, NULL);
-	(c_ct->gTexture != NULL) ? SDL_DestroyTexture(c_ct->gTexture) : 0;
-	SDL_RenderPresent(c_ct->gRenderer);
+	SDL_RenderClear(c_ct->grenderer);
+	SDL_RenderCopy(c_ct->grenderer, c_ct->gtexture, NULL, NULL);
+	(c_ct->gtexture != NULL) ? SDL_DestroyTexture(c_ct->gtexture) : 0;
+	SDL_RenderPresent(c_ct->grenderer);
 }
 
 void			ft_draw_c_f(t_win *game, int x, int y, double currentdist)
