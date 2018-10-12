@@ -366,6 +366,20 @@ void            ft_core(t_win *c_ct);
 //Loads individual image as texture
 SDL_Surface*    ft_get_img(char *path);
 
+//Map validation
+int				is_regular_file(const char *path);
+int				ft_memstcol(t_win *c_cl);
+int				ft_memstcmal(t_win *c_cl);
+int				ft_validval(char **maps, t_win *par);
+int				ft_nblen(int tmpd);
+int				ft_validhex(char *map, int tmpd);
+int				ft_right_symbol(char *s, int from);
+int				ft_borders(t_win *c_cl);
+void			ft_filltabcord(t_win *c_cl);
+void			ft_count_ethalon(t_win *params, char **maps, int *i);
+void			ft_help_function(t_win *c_cl, char *iter);
+
+
 //EXIT
 void            sdl_close(t_win *sc_control);
 

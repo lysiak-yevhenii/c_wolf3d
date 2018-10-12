@@ -6,7 +6,7 @@
 /*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 00:41:26 by ylisyak           #+#    #+#             */
-/*   Updated: 2018/10/12 01:30:25 by ylisyak          ###   ########.fr       */
+/*   Updated: 2018/10/12 16:23:49 by ylisyak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void				ft_init_window(t_win *c_cl)
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		ft_putstr(SDL_GetError());
-	   	(c_cl->statement = FT_FALSE);
+		(c_cl->statement = FT_FALSE);
 	}
 	if (!(c_cl->statement & FT_FALSE))
 	{

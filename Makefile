@@ -6,7 +6,7 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/07 02:47:01 by ylisyak           #+#    #+#              #
-#    Updated: 2018/10/12 01:10:21 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/10/12 17:48:18 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ TTF_LNK	= -L ./sdl/sdl2_ttf/2.0.14/lib/ -l SDL2_ttf
 
 SRC		=	main.c \
 			ft_map_parsing.c \
+			ft_map_validone.c \
+			ft_map_validtwo.c \
+			ft_map_validthree.c \
 			ft_error.c \
 			ft_error_init_sdl.c \
 			ft_error_map.c \
